@@ -1,158 +1,301 @@
 <!doctype html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Valutazione Livello 4 - Percentuale Impatto</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-body{font-family:Inter,ui-sans-serif,system-ui;background:#f7f9fb;margin:0;padding:0;color:#111}
-.container{max-width:900px;margin:30px auto;padding:20px}
-.card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:20px;margin-bottom:16px}
-h1,h2{margin-top:0}
-label{font-weight:600;margin-top:8px;display:block}
-input,textarea,select{width:100%;padding:8px;border:1px solid #e6e9ee;border-radius:8px;margin-top:4px}
-textarea{min-height:80px}
-.btn{display:inline-block;margin:6px 6px 0 0;padding:10px 14px;border:0;border-radius:8px;background:#0b63c6;color:#fff;cursor:pointer}
-.btn.secondary{background:#6b7280}
-canvas{max-width:100%;margin-top:16px}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Valutazione Livello 4 - Percentuale Impatto</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Inter,ui-sans-serif,system-ui;
+            background: #f7f9fb;
+            margin: 0;
+            padding: 0;
+            color: #111
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+            padding: 20px;
+            margin-bottom: 16px
+        }
+
+        h1, h2 {
+            margin-top: 0
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 8px;
+            display: block
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e6e9ee;
+            border-radius: 8px;
+            margin-top: 4px
+        }
+
+        textarea {
+            min-height: 80px
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 6px 6px 0 0;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 8px;
+            background: #0b63c6;
+            color: #fff;
+            cursor: pointer
+        }
+
+            .btn.secondary {
+                background: #6b7280
+            }
+
+        canvas {
+            max-width: 100%;
+            margin-top: 16px
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-<div class="card">
-<h1>Valutazione Livello 4 - Risultati</h1>
-<p>Questionario per coordinatori, finalizzato a calcolare l'impatto della formazione in percentuale.</p>
-<form id="level4Form">
-<label for="unit">Unità operativa</label>
-<input type="text" id="unit" name="unit" placeholder="Es. Sala operatoria Oculistica">
+    <div class="container">
+        <div class="card">
+            <h1>Valutazione Livello 4 - Risultati</h1>
+            <p>Questionario per coordinatori, finalizzato a calcolare l'impatto della formazione in percentuale.</p>
+            <form id="level4Form">
+                <label for="unit">Unità operativa</label>
+                <input type="text" id="unit" name="unit" placeholder="Es. Sala operatoria Oculistica">
 
-<label for="coordinator">Coordinatore</label>
-<input type="text" id="coordinator" name="coordinator" placeholder="Nome e Cognome">
+                <label for="coordinator">Coordinatore</label>
+                <input type="text" id="coordinator" name="coordinator" placeholder="Nome e Cognome">
 
-<label for="period">Periodo di valutazione</label>
-<input type="month" id="period" name="period">
+                <label for="period">Periodo di valutazione</label>
+                <input type="month" id="period" name="period">
 
-<h2>Domande specifiche</h2>
-<div>
-<label>Riduzione errori clinici</label>
-<select name="errors" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
-<div>
-<label>Miglioramento efficienza del flusso di lavoro</label>
-<select name="efficiency" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
-<div>
-<label>Aumento della soddisfazione dell’utenza</label>
-<select name="satisfaction" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
-<div>
-<label>Riduzione tempi medi di procedura</label>
-<select name="time" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
-<div>
-<label>Miglioramento collaborazione tra team</label>
-<select name="teamwork" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
-<div>
-<label>Applicazione coerente dei protocolli</label>
-<select name="protocols" required>
-<option value="">Seleziona</option>
-<option value="1">1 - Nessun miglioramento</option>
-<option value="2">2 - Scarso</option>
-<option value="3">3 - Moderato</option>
-<option value="4">4 - Buono</option>
-<option value="5">5 - Eccellente</option>
-</select>
-</div>
+                <h2>Domande specifiche</h2>
+                <div>
+                    <label>Riduzione errori clinici</label>
+                    <select name="errors" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Miglioramento efficienza del flusso di lavoro</label>
+                    <select name="efficiency" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Aumento della soddisfazione dell’utenza</label>
+                    <select name="satisfaction" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Riduzione tempi medi di procedura</label>
+                    <select name="time" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Miglioramento collaborazione tra team</label>
+                    <select name="teamwork" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Applicazione coerente dei protocolli</label>
+                    <select name="protocols" required>
+                        <option value="">Seleziona</option>
+                        <option value="1">1 - Nessun miglioramento</option>
+                        <option value="2">2 - Scarso</option>
+                        <option value="3">3 - Moderato</option>
+                        <option value="4">4 - Buono</option>
+                        <option value="5">5 - Eccellente</option>
+                    </select>
+                </div>
 
-<label>Note qualitative</label>
+                <label>Note qualitative</label>
 <textarea name="comments" placeholder="Descrivi ulteriori osservazioni o cambiamenti osservati"></textarea>
 
-<button type="button" class="btn" onclick="calculateImpact()">Calcola impatto</button>
-<button type="button" class="btn secondary" onclick="exportCSV()">Esporta CSV</button>
-</form>
+                <button type="button" class="btn" onclick="calculateImpact()">Calcola impatto</button>
+                <button type="button" class="btn secondary" onclick="exportCSV()">Esporta CSV</button>
+                <button type="button" class="btn secondary" onclick="exportPDF()">Esporta PDF</button>
+            </form>
 
-<div class="card" id="resultCard" style="display:none">
-<h2>Percentuale complessiva di impatto</h2>
-<p id="impactPercent"></p>
-<canvas id="impactChart"></canvas>
-</div>
-</div>
+            <div class="card" id="resultCard" style="display:none">
+                <h2>Percentuale complessiva di impatto</h2>
+                <p id="impactPercent"></p>
+                <canvas id="impactChart"></canvas>
+            </div>
+        </div>
 
-<script>
-const STORAGE_KEY='level4_percent_results';
-function calculateImpact(){
-  const form=document.getElementById('level4Form');
-  const data={};
-  ['errors','efficiency','satisfaction','time','teamwork','protocols','comments','unit','coordinator','period'].forEach(k=>{data[k]=form[k].value});
-  if(Object.values(data).slice(0,6).some(v=>'1,2,3,4,5'.indexOf(v)===-1)){alert('Seleziona tutte le risposte da 1 a 5');return;}
+        <script>const STORAGE_KEY = 'level4_percent_results';
+            function calculateImpact() {
+                const form = document.getElementById('level4Form');
+                const data = {};
+                // Recupera i valori, inclusa la data/periodo
+                ['errors', 'efficiency', 'satisfaction', 'time', 'teamwork', 'protocols', 'comments', 'unit', 'coordinator', 'period'].forEach(k => { data[k] = form[k].value });
+                if (Object.values(data).slice(0, 6).some(v => '1,2,3,4,5'.indexOf(v) === -1)) { alert('Seleziona tutte le risposte da 1 a 5'); return; }
 
-  // Calcolo percentuale: ogni risposta 1-5 -> 0%-100%
-  const scores=['errors','efficiency','satisfaction','time','teamwork','protocols'].map(k=>parseInt(data[k]));
-  const percent=Math.round((scores.reduce((a,b)=>a+b,0)/ (scores.length*5))*100);
+                // Calcolo percentuale: ogni risposta 1-5 -> 0%-100%
+                const scores = ['errors', 'efficiency', 'satisfaction', 'time', 'teamwork', 'protocols'].map(k => parseInt(data[k]));
+                const percent = Math.round((scores.reduce((a, b) => a + b, 0) / (scores.length * 5)) * 100);
 
-  data.percent=percent;
+                data.percent = percent;
+                data.timestamp = new Date().toISOString(); // Aggiunge un timestamp di salvataggio
 
-  // Salvataggio locale
-  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
-  arr.push(data);
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+                // Salvataggio locale
+                const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                arr.push(data);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 
-  document.getElementById('impactPercent').textContent=percent+'%';
-  document.getElementById('resultCard').style.display='block';
+                document.getElementById('impactPercent').textContent = percent + '%';
+                document.getElementById('resultCard').style.display = 'block';
 
-  const ctx=document.getElementById('impactChart').getContext('2d');
-  new Chart(ctx,{type:'bar',data:{labels:['Riduzione errori','Efficienza','Soddisfazione','Tempi','Collaborazione','Protocolli'],datasets:[{label:'Valori (%)',data:scores.map(v=>v*20),backgroundColor:'#0b63c6'}]},options:{scales:{y:{beginAtZero:true,max:100}}}});
+                // Aggiorna il grafico
+                const ctx = document.getElementById('impactChart').getContext('2d');
+                // Distruggi il grafico esistente se presente
+                if (window.level4Chart) window.level4Chart.destroy();
+                window.level4Chart = new Chart(ctx, { type: 'bar', data: { labels: ['Riduzione errori', 'Efficienza', 'Soddisfazione', 'Tempi', 'Collaborazione', 'Protocolli'], datasets: [{ label: 'Valori (%)', data: scores.map(v => v * 20), backgroundColor: '#0b63c6' }] }, options: { scales: { y: { beginAtZero: true, max: 100 } } } });
 
-  form.reset();
-}
+                form.reset();
+            }
 
-function exportCSV(){
-  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
-  if(arr.length===0){alert('Nessun dato da esportare');return;}
-  const keys=Object.keys(arr[0]);
-  const csv=[keys.join(',')];
-  arr.forEach(o=>csv.push(keys.map(k=>`"${(o[k]||'').replace(/"/g,'""')}"`).join(',')));
-  const blob=new Blob([csv.join('\n')],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='level4_percent_results.csv';a.click();URL.revokeObjectURL(url);
-}
-</script>
+            function exportCSV() {
+                const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                if (arr.length === 0) { alert('Nessun dato da esportare'); return; }
+                const keys = Object.keys(arr[0]);
+                const csv = [keys.join(',')];
+                arr.forEach(o => csv.push(keys.map(k => `"${(o[k] || '').toString().replace(/"/g, '""')}"`).join(',')));
+                const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'level4_percent_results.csv'; a.click(); a.remove(); URL.revokeObjectURL(url);
+            }
+
+            function exportPDF() {
+                const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                if (arr.length === 0) { alert('Nessun dato da esportare'); return; }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const keyMap = {
+                    unit: 'Unità operativa',
+                    coordinator: 'Coordinatore',
+                    period: 'Periodo di valutazione',
+                    errors: 'Riduzione errori clinici (1-5)',
+                    efficiency: 'Miglioramento efficienza (1-5)',
+                    satisfaction: 'Aumento soddisfazione utenza (1-5)',
+                    time: 'Riduzione tempi medi procedura (1-5)',
+                    teamwork: 'Miglioramento collaborazione team (1-5)',
+                    protocols: 'Applicazione coerente protocolli (1-5)',
+                    percent: 'Percentuale complessiva di impatto',
+                    comments: 'Note qualitative',
+                    timestamp: 'Timestamp Salvataggio'
+                };
+
+                let y = 10;
+                const lineHeight = 7;
+                const textMargin = 10;
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const maxLineWidth = pageWidth - 2 * textMargin;
+
+                doc.setFontSize(16);
+                doc.text("Riepilogo Valutazione - Kirkpatrick Livello 4 (Risultati)", textMargin, y);
+                y += lineHeight * 2;
+
+                arr.forEach((r, idx) => {
+                    doc.setFontSize(12);
+                    doc.setFont(undefined, 'bold');
+                    // Visualizza periodo e unità operativa nell'intestazione
+                    let headerText = `VALUTAZIONE ${idx + 1} (${r.period ? r.period : 'N/D'}) - Unità: ${r.unit ? r.unit : 'N/D'}`;
+                    doc.text(headerText, textMargin, y);
+                    y += lineHeight;
+
+                    doc.setFont(undefined, 'normal');
+                    Object.keys(r).forEach(k => {
+                        const label = keyMap[k] || k;
+                        if (r[k] && k !== 'timestamp') {
+                            let value = r[k].toString().trim();
+
+                            if (k === 'comments' && value) {
+                                // Gestione del testo lungo per le note
+                                doc.setFont(undefined, 'bold');
+                                doc.text('Note qualitative:', textMargin, y);
+                                y += lineHeight * 0.8;
+                                doc.setFont(undefined, 'normal');
+                                const splitText = doc.splitTextToSize(value, maxLineWidth - 5);
+                                doc.text(splitText, textMargin + 5, y);
+                                y += splitText.length * lineHeight;
+                            } else if (k === 'percent') {
+                                // Mette in grassetto il risultato della percentuale
+                                doc.setFont(undefined, 'bold');
+                                doc.text(`${label}: ${value}%`, textMargin, y);
+                                doc.setFont(undefined, 'normal');
+                                y += lineHeight;
+                            } else if (k !== 'unit' && k !== 'coordinator' && k !== 'period') {
+                                // Stampa le altre voci
+                                let line = `${label}: ${value}`;
+                                const splitText = doc.splitTextToSize(line, maxLineWidth);
+                                doc.text(splitText, textMargin, y);
+                                y += splitText.length * lineHeight;
+                            }
+
+                            if (y > 280) { doc.addPage(); y = 10; }
+                        }
+                    });
+                    y += lineHeight;
+
+                    // Linea separatrice tra le osservazioni
+                    doc.line(textMargin, y - (lineHeight / 2), pageWidth - textMargin, y - (lineHeight / 2));
+                    y += lineHeight;
+
+                    if (y > 280) { doc.addPage(); y = 10; }
+                });
+
+                doc.save('kirkpatrick_level4_results.pdf');
+            }</script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
