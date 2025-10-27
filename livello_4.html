@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Valutazione Livello 4 - Percentuale Impatto</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Inter,ui-sans-serif,system-ui;background:#f7f9fb;margin:0;padding:0;color:#111}
+.container{max-width:900px;margin:30px auto;padding:20px}
+.card{background:#fff;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:20px;margin-bottom:16px}
+h1,h2{margin-top:0}
+label{font-weight:600;margin-top:8px;display:block}
+input,textarea,select{width:100%;padding:8px;border:1px solid #e6e9ee;border-radius:8px;margin-top:4px}
+textarea{min-height:80px}
+.btn{display:inline-block;margin:6px 6px 0 0;padding:10px 14px;border:0;border-radius:8px;background:#0b63c6;color:#fff;cursor:pointer}
+.btn.secondary{background:#6b7280}
+canvas{max-width:100%;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="card">
+<h1>Valutazione Livello 4 - Risultati</h1>
+<p>Questionario per coordinatori, finalizzato a calcolare l'impatto della formazione in percentuale.</p>
+<form id="level4Form">
+<label for="unit">Unità operativa</label>
+<input type="text" id="unit" name="unit" placeholder="Es. Sala operatoria Oculistica">
+
+<label for="coordinator">Coordinatore</label>
+<input type="text" id="coordinator" name="coordinator" placeholder="Nome e Cognome">
+
+<label for="period">Periodo di valutazione</label>
+<input type="month" id="period" name="period">
+
+<h2>Domande specifiche</h2>
+<div>
+<label>Riduzione errori clinici</label>
+<select name="errors" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+<div>
+<label>Miglioramento efficienza del flusso di lavoro</label>
+<select name="efficiency" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+<div>
+<label>Aumento della soddisfazione dell’utenza</label>
+<select name="satisfaction" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+<div>
+<label>Riduzione tempi medi di procedura</label>
+<select name="time" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+<div>
+<label>Miglioramento collaborazione tra team</label>
+<select name="teamwork" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+<div>
+<label>Applicazione coerente dei protocolli</label>
+<select name="protocols" required>
+<option value="">Seleziona</option>
+<option value="1">1 - Nessun miglioramento</option>
+<option value="2">2 - Scarso</option>
+<option value="3">3 - Moderato</option>
+<option value="4">4 - Buono</option>
+<option value="5">5 - Eccellente</option>
+</select>
+</div>
+
+<label>Note qualitative</label>
+<textarea name="comments" placeholder="Descrivi ulteriori osservazioni o cambiamenti osservati"></textarea>
+
+<button type="button" class="btn" onclick="calculateImpact()">Calcola impatto</button>
+<button type="button" class="btn secondary" onclick="exportCSV()">Esporta CSV</button>
+</form>
+
+<div class="card" id="resultCard" style="display:none">
+<h2>Percentuale complessiva di impatto</h2>
+<p id="impactPercent"></p>
+<canvas id="impactChart"></canvas>
+</div>
+</div>
+
+<script>
+const STORAGE_KEY='level4_percent_results';
+function calculateImpact(){
+  const form=document.getElementById('level4Form');
+  const data={};
+  ['errors','efficiency','satisfaction','time','teamwork','protocols','comments','unit','coordinator','period'].forEach(k=>{data[k]=form[k].value});
+  if(Object.values(data).slice(0,6).some(v=>'1,2,3,4,5'.indexOf(v)===-1)){alert('Seleziona tutte le risposte da 1 a 5');return;}
+
+  // Calcolo percentuale: ogni risposta 1-5 -> 0%-100%
+  const scores=['errors','efficiency','satisfaction','time','teamwork','protocols'].map(k=>parseInt(data[k]));
+  const percent=Math.round((scores.reduce((a,b)=>a+b,0)/ (scores.length*5))*100);
+
+  data.percent=percent;
+
+  // Salvataggio locale
+  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+  arr.push(data);
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+
+  document.getElementById('impactPercent').textContent=percent+'%';
+  document.getElementById('resultCard').style.display='block';
+
+  const ctx=document.getElementById('impactChart').getContext('2d');
+  new Chart(ctx,{type:'bar',data:{labels:['Riduzione errori','Efficienza','Soddisfazione','Tempi','Collaborazione','Protocolli'],datasets:[{label:'Valori (%)',data:scores.map(v=>v*20),backgroundColor:'#0b63c6'}]},options:{scales:{y:{beginAtZero:true,max:100}}}});
+
+  form.reset();
+}
+
+function exportCSV(){
+  const arr=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+  if(arr.length===0){alert('Nessun dato da esportare');return;}
+  const keys=Object.keys(arr[0]);
+  const csv=[keys.join(',')];
+  arr.forEach(o=>csv.push(keys.map(k=>`"${(o[k]||'').replace(/"/g,'""')}"`).join(',')));
+  const blob=new Blob([csv.join('\n')],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='level4_percent_results.csv';a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

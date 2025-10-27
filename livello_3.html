@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Valutazione Livello 3 - Kirkpatrick</title>
+  <style>
+    :root{--bg:#f7f9fb;--card:#ffffff;--accent:#0b63c6;--muted:#6b7280}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:0;background:var(--bg);color:#111}
+    .container{max-width:900px;margin:32px auto;padding:20px}
+    .card{background:var(--card);border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:20px;margin-bottom:16px}
+    h1{margin:0 0 8px 0;font-size:20px}
+    p.lead{color:var(--muted);margin:0 0 12px 0}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1;min-width:220px}
+    .likert{display:flex;gap:6px;align-items:center}
+    .likert input{display:none}
+    .likert label{padding:8px 10px;border-radius:8px;background:#efefef;cursor:pointer}
+    .likert input:checked + label{background:var(--accent);color:white}
+    textarea{width:100%;min-height:90px;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
+    input[type=text], input[type=date]{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    .btn.secondary{background:#6b7280}
+    .muted{color:var(--muted);font-size:13px}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Valutazione - Livello 3 (Comportamento)</h1>
+      <p class="lead">Valutazione dell’applicazione pratica delle competenze infermieristiche in sala operatoria di oculistica. Destinato all’osservatore/tutor.</p>
+
+      <form id="behaviorForm">
+        <div class="row">
+          <div class="col">
+            <label for="participant">Infermiere osservato</label>
+            <input type="text" id="participant" name="participant" placeholder="Nome o ID">
+          </div>
+          <div class="col">
+            <label for="observer">Osservatore / Tutor</label>
+            <input type="text" id="observer" name="observer" placeholder="Nome osservatore">
+          </div>
+          <div class="col">
+            <label for="date">Data osservazione</label>
+            <input type="date" id="date" name="date">
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Precisione tecnica -->
+        <div class="card">
+          <h3>Precisione tecnica</h3>
+          <div>Corretta preparazione degli strumenti</div>
+          <div class="likert">
+            <input type="radio" id="prep1" name="preparation" value="1"><label for="prep1">1</label>
+            <input type="radio" id="prep2" name="preparation" value="2"><label for="prep2">2</label>
+            <input type="radio" id="prep3" name="preparation" value="3"><label for="prep3">3</label>
+            <input type="radio" id="prep4" name="preparation" value="4"><label for="prep4">4</label>
+            <input type="radio" id="prep5" name="preparation" value="5"><label for="prep5">5</label>
+          </div>
+
+          <div>Posizionamento del paziente e gestione campo sterile</div>
+          <div class="likert">
+            <input type="radio" id="patient1" name="patientPosition" value="1"><label for="patient1">1</label>
+            <input type="radio" id="patient2" name="patientPosition" value="2"><label for="patient2">2</label>
+            <input type="radio" id="patient3" name="patientPosition" value="3"><label for="patient3">3</label>
+            <input type="radio" id="patient4" name="patientPosition" value="4"><label for="patient4">4</label>
+            <input type="radio" id="patient5" name="patientPosition" value="5"><label for="patient5">5</label>
+          </div>
+        </div>
+
+        <!-- Gestione tempo e organizzazione -->
+        <div class="card">
+          <h3>Gestione del tempo e organizzazione</h3>
+          <div>Rispetto dei tempi chirurgici</div>
+          <div class="likert">
+            <input type="radio" id="timing1" name="timing" value="1"><label for="timing1">1</label>
+            <input type="radio" id="timing2" name="timing" value="2"><label for="timing2">2</label>
+            <input type="radio" id="timing3" name="timing" value="3"><label for="timing3">3</label>
+            <input type="radio" id="timing4" name="timing" value="4"><label for="timing4">4</label>
+            <input type="radio" id="timing5" name="timing" value="5"><label for="timing5">5</label>
+          </div>
+
+          <div>Prioritizzazione delle attività</div>
+          <div class="likert">
+            <input type="radio" id="priority1" name="priority" value="1"><label for="priority1">1</label>
+            <input type="radio" id="priority2" name="priority" value="2"><label for="priority2">2</label>
+            <input type="radio" id="priority3" name="priority" value="3"><label for="priority3">3</label>
+            <input type="radio" id="priority4" name="priority" value="4"><label for="priority4">4</label>
+            <input type="radio" id="priority5" name="priority" value="5"><label for="priority5">5</label>
+          </div>
+        </div>
+
+        <!-- Comunicazione e collaborazione -->
+        <div class="card">
+          <h3>Comunicazione e collaborazione</h3>
+          <div>Chiarezza nella comunicazione con il team</div>
+          <div class="likert">
+            <input type="radio" id="comm1" name="communication" value="1"><label for="comm1">1</label>
+            <input type="radio" id="comm2" name="communication" value="2"><label for="comm2">2</label>
+            <input type="radio" id="comm3" name="communication" value="3"><label for="comm3">3</label>
+            <input type="radio" id="comm4" name="communication" value="4"><label for="comm4">4</label>
+            <input type="radio" id="comm5" name="communication" value="5"><label for="comm5">5</label>
+          </div>
+
+          <div>Segnalazione tempestiva problemi o rischi</div>
+          <div class="likert">
+            <input type="radio" id="alert1" name="alerts" value="1"><label for="alert1">1</label>
+            <input type="radio" id="alert2" name="alerts" value="2"><label for="alert2">2</label>
+            <input type="radio" id="alert3" name="alerts" value="3"><label for="alert3">3</label>
+            <input type="radio" id="alert4" name="alerts" value="4"><label for="alert4">4</label>
+            <input type="radio" id="alert5" name="alerts" value="5"><label for="alert5">5</label>
+          </div>
+        </div>
+
+        <!-- Adattamento a imprevisti -->
+        <div class="card">
+          <h3>Adattamento a imprevisti</h3>
+          <div>Reazioni corrette a cambiamenti o complicazioni</div>
+          <div class="likert">
+            <input type="radio" id="adapt1" name="adaptability" value="1"><label for="adapt1">1</label>
+            <input type="radio" id="adapt2" name="adaptability" value="2"><label for="adapt2">2</label>
+            <input type="radio" id="adapt3" name="adaptability" value="3"><label for="adapt3">3</label>
+            <input type="radio" id="adapt4" name="adaptability" value="4"><label for="adapt4">4</label>
+            <input type="radio" id="adapt5" name="adaptability" value="5"><label for="adapt5">5</label>
+          </div>
+
+          <div>Proattività nel prevedere esigenze del team</div>
+          <div class="likert">
+            <input type="radio" id="proactive1" name="proactivity" value="1"><label for="proactive1">1</label>
+            <input type="radio" id="proactive2" name="proactivity" value="2"><label for="proactive2">2</label>
+            <input type="radio" id="proactive3" name="proactivity" value="3"><label for="proactive3">3</label>
+            <input type="radio" id="proactive4" name="proactivity" value="4"><label for="proactive4">4</label>
+            <input type="radio" id="proactive5" name="proactivity" value="5"><label for="proactive5">5</label>
+          </div>
+        </div>
+
+        <!-- Applicazione protocolli -->
+        <div class="card">
+          <h3>Applicazione protocolli e linee guida</h3>
+          <div>Rispetto di check-list e procedure standard</div>
+          <div class="likert">
+            <input type="radio" id="protocol1" name="protocols" value="1"><label for="protocol1">1</label>
+            <input type="radio" id="protocol2" name="protocols" value="2"><label for="protocol2">2</label>
+            <input type="radio" id="protocol3" name="protocols" value="3"><label for="protocol3">3</label>
+            <input type="radio" id="protocol4" name="protocols" value="4"><label for="protocol4">4</label>
+            <input type="radio" id="protocol5" name="protocols" value="5"><label for="protocol5">5</label>
+          </div>
+
+          <div>Uso corretto dispositivi di sicurezza</div>
+          <div class="likert">
+            <input type="radio" id="safetyDevices1" name="safetyDevices" value="1"><label for="safetyDevices1">1</label>
+            <input type="radio" id="safetyDevices2" name="safetyDevices" value="2"><label for="safetyDevices2">2</label>
+            <input type="radio" id="safetyDevices3" name="safetyDevices" value="3"><label for="safetyDevices3">3</label>
+            <input type="radio" id="safetyDevices4" name="safetyDevices" value="4"><label for="safetyDevices4">4</label>
+            <input type="radio" id="safetyDevices5" name="safetyDevices" value="5"><label for="safetyDevices5">5</label>
+          </div>
+        </div>
+
+        <!-- Commenti finali -->
+        <div class="card">
+          <label>Osservazioni e commenti generali</label>
+          <textarea id="comments" name="comments" placeholder="Inserire note aggiuntive sull’applicazione pratica delle competenze"></textarea>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="btn" onclick="saveResponse()">Salva osservazione</button>
+          <button type="button" class="btn secondary" onclick="showSummary()">Visualizza riepilogo</button>
+          <button type="button" class="btn secondary" onclick="exportCSV()">Esporta CSV</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="card" id="summaryCard" style="display:none">
+      <h2>Riepilogo osservazioni</h2>
+      <p class="muted">Osservazioni salvate localmente. Puoi esportarle per analisi o reportistica.</p>
+      <div id="summary"></div>
+      <div style="margin-top:12px"><button class="btn secondary" onclick="clearResponses()">Elimina tutte le osservazioni</button></div>
+    </div>
+
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'kirkpatrick_level3_responses';
+
+    function getFormData(){
+      const form = document.getElementById('behaviorForm');
+      const fd = new FormData(form);
+      const obj = {};
+      for(const [k,v] of fd.entries()) obj[k]=v;
+      obj.timestamp = new Date().toISOString();
+      return obj;
+    }
+
+    function saveResponse(){
+      const data = getFormData();
+      if(!data.preparation){ alert('Valuta almeno la preparazione degli strumenti.'); return; }
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      arr.push(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      alert('Osservazione salvata localmente.');
+      document.getElementById('behaviorForm').reset();
+    }
+
+    function showSummary(){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const container = document.getElementById('summary');
+      container.innerHTML = '';
+      if(arr.length === 0){ container.innerHTML='<p class="muted">Nessuna osservazione disponibile.</p>'; document.getElementById('summaryCard').style.display='block'; return; }
+      document.getElementById('summaryCard').style.display='block';
+      const h = document.createElement('h3'); h.textContent='Commenti / Osservazioni'; container.appendChild(h);
+      const ul = document.createElement('ul');
+      arr.slice().reverse().forEach(r=>{ if(r.comments && r.comments.trim()){ const li=document.createElement('li'); li.textContent=`(${new Date(r.timestamp).toLocaleString()}) ${r.comments}`; ul.appendChild(li); } });
+      if(!ul.children.length){ const p=document.createElement('p'); p.className='muted'; p.textContent='Nessun commento'; container.appendChild(p);} else container.appendChild(ul);
+    }
+
+    function exportCSV(){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      if(arr.length===0){ alert('Nessuna osservazione da esportare'); return; }
+      const keys = Object.keys(arr[0]);
+      const csvRows = [];
+      csvRows.push(keys.join(','));
+      arr.forEach(obj=>{
+        const vals = keys.map(k=>`"${(obj[k]||'').toString().replace(/"/g,'""')}"`);
+        csvRows.push(vals.join(','));
+      });
+      const blob = new Blob([csvRows.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'kirkpatrick_level3_responses.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function clearResponses(){
+      if(!confirm('Eliminare tutte le osservazioni salvate?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      showSummary();
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('date').value = new Date().toISOString().slice(0,10);
+    });
+  </script>
+</body>
+</html>

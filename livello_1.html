@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Valutazione Livello 1 - Kirkpatrick</title>
+  <style>
+    :root{--bg:#f7f9fb;--card:#ffffff;--accent:#0b63c6;--muted:#6b7280}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:0;background:var(--bg);color:#111}
+    .container{max-width:900px;margin:32px auto;padding:20px}
+    .card{background:var(--card);border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06);padding:20px;margin-bottom:16px}
+    h1{margin:0 0 8px 0;font-size:20px}
+    p.lead{color:var(--muted);margin:0 0 12px 0}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1;min-width:220px}
+    .likert{display:flex;gap:6px;align-items:center}
+    .likert input{display:none}
+    .likert label{padding:8px 10px;border-radius:8px;background:#efefef;cursor:pointer}
+    .likert input:checked + label{background:var(--accent);color:white}
+    textarea{width:100%;min-height:90px;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
+    input[type=text], input[type=date]{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ee}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+    .btn.secondary{background:#6b7280}
+    .muted{color:var(--muted);font-size:13px}
+    .flex{display:flex;gap:8px;align-items:center}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px solid #eef2f7;text-align:left}
+    .small{font-size:13px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Valutazione - Livello 1 (Reazione)</h1>
+      <p class="lead">Questionario di gradimento, feedback e sondaggi sulla soddisfazione. Usa questo modulo per raccogliere le reazioni immediate dei partecipanti al corso/attività formativa in sala operatoria di oculistica.</p>
+
+      <form id="feedbackForm">
+        <div class="row">
+          <div class="col">
+            <label for="course">Corso / Evento</label>
+            <input type="text" id="course" name="course" placeholder="Titolo corso (es. Inserimento in sala oculistica)">
+          </div>
+          <div class="col">
+            <label for="date">Data</label>
+            <input type="date" id="date" name="date">
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="participant">Partecipante (opzionale)</label>
+          <input type="text" id="participant" name="participant" placeholder="Nome o ID partecipante">
+        </div>
+
+        <hr>
+
+        <div class="card small">
+            <label>Valuta i seguenti aspetti (1 = molto insoddisfatto, 5 = molto soddisfatto)</label>
+
+            <div style="margin-top:8px">
+                <div class="small">Congruenza dei contenuti rispetto agli obietivi enunciati</div>
+                <div class="likert" data-name="satisfaction">
+                    <input type="radio" id="s1" name="satisfaction" value="1"><label for="s1">1</label>
+                    <input type="radio" id="s2" name="satisfaction" value="2"><label for="s2">2</label>
+                    <input type="radio" id="s3" name="satisfaction" value="3"><label for="s3">3</label>
+                    <input type="radio" id="s4" name="satisfaction" value="4"><label for="s4">4</label>
+                    <input type="radio" id="s5" name="satisfaction" value="5"><label for="s5">5</label>
+                </div>
+            </div>
+
+            <div style="margin-top:8px">
+                <div class="small">Rispondenza dei contenuti formativi rispetto alle aspettative inziali</div>
+                <div class="likert">
+                    <input type="radio" id="c1" name="clarity" value="1"><label for="c1">1</label>
+                    <input type="radio" id="c2" name="clarity" value="2"><label for="c2">2</label>
+                    <input type="radio" id="c3" name="clarity" value="3"><label for="c3">3</label>
+                    <input type="radio" id="c4" name="clarity" value="4"><label for="c4">4</label>
+                    <input type="radio" id="c5" name="clarity" value="5"><label for="c5">5</label>
+                </div>
+            </div>
+
+            <div style="margin-top:8px">
+                <div class="small">Applicabilità degli argomenti trattati in ambito lavorativo </div>
+                <div class="likert">
+                    <input type="radio" id="r1" name="relevance" value="1"><label for="r1">1</label>
+                    <input type="radio" id="r2" name="relevance" value="2"><label for="r2">2</label>
+                    <input type="radio" id="r3" name="relevance" value="3"><label for="r3">3</label>
+                    <input type="radio" id="r4" name="relevance" value="4"><label for="r4">4</label>
+                    <input type="radio" id="r5" name="relevance" value="5"><label for="r5">5</label>
+                </div>
+            </div>
+
+            <div style="margin-top:8px">
+                <div class="small">Rispondenza dei contenuti formativi rispetto al fabbisogno formativo</div>
+                <div class="likert">
+                    <input type="radio" id="m1" name="materials" value="1"><label for="m1">1</label>
+                    <input type="radio" id="m2" name="materials" value="2"><label for="m2">2</label>
+                    <input type="radio" id="m3" name="materials" value="3"><label for="m3">3</label>
+                    <input type="radio" id="m4" name="materials" value="4"><label for="m4">4</label>
+                    <input type="radio" id="m5" name="materials" value="5"><label for="m5">5</label>
+                </div>
+            </div>
+
+            <div style="margin-top:8px">
+                <div class="small">Efficacia delle simulazioni video (MindEx)</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <h2>DOCENTI</h2>
+                <div class="small">Padronanza dei contenuti e chiarezza espositiva</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <div class="small">Organicità e sequenzialità nella presentazione degli argomanti</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <div class="small">Gestione attività in simulazione:capacità tecniche, comunicative e relazionali</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <h2>MATERIALE DIDATTICO E MODELLI DI FORMAZIONE</h2>
+                <div class="small">Come giudica il materiale diattico utilizzato?</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <div class="small">Come giudica la realizzazione delle esercitazioni pratiche in aula?</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+            <div style="margin-top:8px">
+                <div class="small">Come giudica la realizzazione della Live Simulation?</div>
+                <div class="likert">
+                    <input type="radio" id="v1" name="video" value="1"><label for="v1">1</label>
+                    <input type="radio" id="v2" name="video" value="2"><label for="v2">2</label>
+                    <input type="radio" id="v3" name="video" value="3"><label for="v3">3</label>
+                    <input type="radio" id="v4" name="video" value="4"><label for="v4">4</label>
+                    <input type="radio" id="v5" name="video" value="5"><label for="v5">5</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="strengths">Punti di forza (breve)</label>
+          <textarea id="strengths" name="strengths" placeholder="Cosa ti è piaciuto maggiormente?"></textarea>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="improvements">Miglioramenti suggeriti</label>
+          <textarea id="improvements" name="improvements" placeholder="Cosa migliorerebbe il corso?"></textarea>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="other">Altri commenti / feedback</label>
+          <textarea id="other" name="other" placeholder="Commenti liberi"></textarea>
+        </div>
+
+        <div style="margin-top:12px" class="actions">
+          <button type="button" class="btn" onclick="saveResponse()">Invia feedback</button>
+          <button type="button" class="btn secondary" onclick="showSummary()">Visualizza riepilogo</button>
+          <button type="button" class="btn secondary" onclick="exportCSV()">Esporta CSV</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="card" id="summaryCard" style="display:none">
+      <h2>Riepilogo risposte</h2>
+      <p class="muted">Risposte salvate (memorizzate localmente nel browser). Puoi esportarle in CSV per analisi esterne.</p>
+      <div id="summary"></div>
+      <div style="margin-top:12px"><button class="btn secondary" onclick="clearResponses()">Elimina tutte le risposte</button></div>
+    </div>
+
+    <footer class="muted"></footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'kirkpatrick_level1_responses';
+
+    function getFormData(){
+      const form = document.getElementById('feedbackForm');
+      const fd = new FormData(form);
+      const obj = {};
+      for(const [k,v] of fd.entries()) obj[k]=v;
+      obj.timestamp = new Date().toISOString();
+      return obj;
+    }
+
+    function saveResponse(){
+      const data = getFormData();
+      // basic validation: at least satisfaction should be filled
+      if(!data.satisfaction){
+        alert('Per favore valuta almeno la soddisfazione generale (1-5).');
+        return;
+      }
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      arr.push(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      alert('Feedback salvato localmente. Puoi visualizzare il riepilogo o esportare i dati.');
+      document.getElementById('feedbackForm').reset();
+    }
+
+    function showSummary(){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const card = document.getElementById('summaryCard');
+      const container = document.getElementById('summary');
+      container.innerHTML = '';
+      if(arr.length === 0){
+        container.innerHTML = '<p class="muted">Nessuna risposta disponibile.</p>';
+        card.style.display = 'block';
+        return;
+      }
+      // aggregate simple stats
+      const keys = ['satisfaction','clarity','relevance','materials','video'];
+      const stats = {};
+      keys.forEach(k=>{ stats[k] = {count:0,sum:0} });
+      arr.forEach(r=>{
+        keys.forEach(k=>{ if(r[k]){ stats[k].count++; stats[k].sum += parseInt(r[k]); }});
+      });
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      thead.innerHTML = '<tr><th>Voce</th><th>Media</th><th>Risposte</th></tr>';
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+      keys.forEach(k=>{
+        const s = stats[k];
+        const media = s.count ? (s.sum/s.count).toFixed(2) : '-';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${labelForKey(k)}</td><td>${media}</td><td>${s.count}</td>`;
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      container.appendChild(table);
+
+      // show latest free-text comments
+      const texts = ['strengths','improvements','other'];
+      texts.forEach(t=>{
+        const h = document.createElement('h3'); h.textContent = prettifyTextKey(t); container.appendChild(h);
+        const ul = document.createElement('ul');
+        arr.slice().reverse().forEach(r=>{
+          if(r[t] && r[t].trim()){
+            const li = document.createElement('li');
+            li.textContent = `(${new Date(r.timestamp).toLocaleString()}) ${r[t]}`;
+            ul.appendChild(li);
+          }
+        });
+        if(!ul.children.length){ const p = document.createElement('p'); p.className='muted'; p.textContent='Nessun commento'; container.appendChild(p);} else container.appendChild(ul);
+      });
+
+      card.style.display = 'block';
+    }
+
+    function labelForKey(k){
+      switch(k){
+        case 'satisfaction': return 'Soddisfazione generale';
+        case 'clarity': return 'Chiarezza dei contenuti';
+        case 'relevance': return 'Rilevanza per il ruolo in sala operatoria';
+        case 'materials': return 'Utilità materiali (MindEx)';
+        case 'video': return 'Efficacia simulazioni video (ChirurgiCam)';
+        default: return k;
+      }
+    }
+    function prettifyTextKey(k){
+      switch(k){case 'strengths': return 'Punti di forza';case 'improvements': return 'Miglioramenti suggeriti';case 'other': return 'Altri commenti';default: return k}
+    }
+
+    function exportCSV(){
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      if(arr.length===0){ alert('Nessuna risposta da esportare'); return; }
+      const keys = Object.keys(arr[0]);
+      const csvRows = [];
+      csvRows.push(keys.join(','));
+      arr.forEach(obj=>{
+        const vals = keys.map(k=>`"${(obj[k]||'').toString().replace(/"/g,'""')}"`);
+        csvRows.push(vals.join(','));
+      });
+      const blob = new Blob([csvRows.join('\n')], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'kirkpatrick_level1_responses.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function clearResponses(){
+      if(!confirm('Eliminare tutte le risposte salvate localmente?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      showSummary();
+    }
+
+    // Initialize date field with today
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const d = new Date().toISOString().slice(0,10);
+      document.getElementById('date').value = d;
+    });
+  </script>
+</body>
+</html>

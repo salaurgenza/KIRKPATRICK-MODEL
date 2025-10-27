@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Moodle - Valutazione Kirkpatrick</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #sidebar {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 15px;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+        }
+
+        #content {
+            flex-grow: 1;
+            padding: 15px;
+        }
+
+        .file-entry {
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            transition: background 0.2s;
+            border-radius: 8px;
+            padding: 6px;
+        }
+
+            .file-entry:hover {
+                background: #e8eef6;
+            }
+
+            .file-entry svg {
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+                stroke: #0b63c6;
+            }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h3>📊 Valutazione Kirkpatrick</h3>
+
+        <div class="file-entry" onclick="openLesson('livello_1.html')">
+            <i data-lucide="smile"></i>
+            Livello 1 - Reazione
+        </div>
+
+        <div class="file-entry" onclick="openLesson('livello_2.html')">
+            <i data-lucide="star"></i>
+            Livello 2 - Apprendimento
+        </div>
+
+        <div class="file-entry" onclick="openLesson('livello_3.html')">
+            <i data-lucide="activity"></i>
+            Livello 3 - Comportamento
+        </div>
+
+        <div class="file-entry" onclick="openLesson('livello_4.html')">
+            <i data-lucide="bar-chart-3"></i>
+            Livello 4 - Risultati
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="welcome" style="display:flex;justify-content:center;align-items:center;height:100%;background:#fff;">
+            <img src="image.png" alt="Benvenuto" style="max-width:100%;max-height:100%;">
+        </div>
+        <iframe id="lessonFrame" style="display:none;"></iframe>
+    </div>
+
+    <script>lucide.createIcons();
+
+        function openLesson(path) {
+            document.getElementById('welcome').style.display = 'none';
+            const frame = document.getElementById('lessonFrame');
+            frame.style.display = 'block';
+            frame.src = path;
+        }</script>
+</body>
+</html>
